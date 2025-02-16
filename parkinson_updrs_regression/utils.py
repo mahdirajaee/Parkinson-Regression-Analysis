@@ -22,7 +22,6 @@ class RegressionEvaluator:
         plt.hist(errors, bins=50, density=True, histtype='bar')
         plt.xlabel(r'$e = y - \hat{y}$')
         plt.ylabel("Density")
-        plt.grid()
         plt.title(title)
         plt.tight_layout()
         plt.show()
@@ -38,7 +37,6 @@ class RegressionEvaluator:
         plt.ylabel("Predicted Values")
         plt.legend()
         plt.grid()
-        plt.title(title)
         plt.tight_layout()
         plt.show()
 

@@ -26,7 +26,6 @@ def shuffle_split_data(df, test_ratio=0.5, seed=123456):
     df_shuffled = df.sample(frac=1, random_state=seed).reset_index(drop=True)
     N = len(df_shuffled)
     split_index = int(N * (1 - test_ratio))
-
     train_df = df_shuffled.iloc[:split_index]
     test_df  = df_shuffled.iloc[split_index:]
     return train_df, test_df

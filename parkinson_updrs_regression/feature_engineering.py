@@ -6,7 +6,6 @@ def compute_feature_correlations(df, target='total_UPDRS'):
     - We exclude 'total_UPDRS' from correlation-based removal.
     - We only compute correlation on the non-target features.
     """
-    # Separate target column if present
     if target in df.columns:
         target_series = df[target]
         df_features = df.drop(columns=[target])
@@ -14,16 +13,11 @@ def compute_feature_correlations(df, target='total_UPDRS'):
         df_features = df.copy()
         target_series = None
 
-    # Compute correlation on the feature subset
     corr_matrix = df_features.corr().abs()
 
     # Upper triangle to avoid duplicates
     upper = corr_matrix.where(np.triu(np.ones(corr_matrix.shape), k=1).astype(bool))
-    
-    # Find columns with correlation > 0.9
     to_drop = [column for column in upper.columns if any(upper[column] > 0.9)]
-
-    # Drop only if columns exist
     df_features = df_features.drop(columns=to_drop, errors='ignore')
 
     # Reattach the target column
