@@ -8,9 +8,9 @@ def load_data(file_path="data/parkinsons_updrs.csv"):
 
 def preprocess_data(df):
     """
-    Basic preprocessing:
-    - Drop rows with missing values (if any)
-    - Drop 'subject#' if it exists
+    Cleans the dataset:
+      - Drops rows with missing values.
+      - Removes the 'subject#' column if it exists.
     """
     df = df.dropna()
     if 'subject#' in df.columns:
@@ -19,8 +19,8 @@ def preprocess_data(df):
 
 def shuffle_split_data(df, test_ratio=0.5, seed=123456):
     """
-    Shuffles and splits the dataset into train/test subsets.
-    Default 50%-50% split, seed is your matricola/ID.
+    Shuffles and splits the dataset into training and test sets.
+    Default: 50% train, 50% test. Seed is used for reproducibility.
     """
     np.random.seed(seed)
     df_shuffled = df.sample(frac=1, random_state=seed).reset_index(drop=True)
@@ -31,5 +31,5 @@ def shuffle_split_data(df, test_ratio=0.5, seed=123456):
     return train_df, test_df
 
 def normalize_features(df):
-    """Normalizes all columns (zero mean, unit variance)."""
+    """Normalizes each column to have zero mean and unit variance."""
     return (df - df.mean()) / df.std()
