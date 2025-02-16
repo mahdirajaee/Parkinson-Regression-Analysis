@@ -6,7 +6,6 @@ class RegressionEvaluator:
     """Provides methods for evaluating and visualizing regression performance."""
     @staticmethod
     def evaluate(y_true, y_pred):
-        """Computes Mean Squared Error (MSE), R², and correlation coefficient."""
         error = y_true - y_pred
         mse = np.mean(error ** 2)
         var_y = np.var(y_true)
@@ -16,7 +15,6 @@ class RegressionEvaluator:
 
     @staticmethod
     def plot_histogram(errors, title="Error Histogram"):
-        """Plots a histogram of regression errors."""
         plt.figure(figsize=(6, 4))
         plt.hist(errors, bins=50, density=True, histtype='bar')
         plt.xlabel(r'$e = y - \hat{y}$')
@@ -28,7 +26,6 @@ class RegressionEvaluator:
 
     @staticmethod
     def plot_predictions(y_true, y_pred, title="True vs Predicted"):
-        """Plots predicted values versus true values."""
         plt.figure(figsize=(6, 4))
         plt.scatter(y_true, y_pred, alpha=0.7, label="Predictions")
         min_val, max_val = min(y_true.min(), y_pred.min()), max(y_true.max(), y_pred.max())
@@ -43,7 +40,6 @@ class RegressionEvaluator:
 
     @staticmethod
     def print_results(y_train, y_train_pred, y_test, y_test_pred):
-        """Prints a DataFrame with performance metrics for training and test sets."""
         train_mse, train_r2, train_corr = RegressionEvaluator.evaluate(y_train, y_train_pred)
         test_mse, test_r2, test_corr = RegressionEvaluator.evaluate(y_test, y_test_pred)
         results = pd.DataFrame({

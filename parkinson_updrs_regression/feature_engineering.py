@@ -13,7 +13,6 @@ def compute_feature_correlations(df, target='total_UPDRS'):
         target_series = None
 
     corr_matrix = df_features.corr().abs()
-    # Consider only the upper triangle of the correlation matrix
     upper = corr_matrix.where(np.triu(np.ones(corr_matrix.shape), k=1).astype(bool))
     to_drop = [column for column in upper.columns if any(upper[column] > 0.9)]
     df_features = df_features.drop(columns=to_drop, errors='ignore')
@@ -21,7 +20,6 @@ def compute_feature_correlations(df, target='total_UPDRS'):
     # Reattach the target column if it existed
     if target_series is not None:
         df_features[target] = target_series
-
     return df_features
 
 def drop_specific_features(df, features_to_drop):

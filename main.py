@@ -10,15 +10,12 @@ def main():
     # Use your matricola/ID as the seed (replace 123456 with your number)
     ID_SEED = 123456
 
-    # 1. Load dataset
     print("Loading dataset...")
     df = load_data("data/parkinsons_updrs.csv")
 
-    # 2. Preprocess dataset
     print("Preprocessing dataset...")
     df_clean = preprocess_data(df)
 
-    # 3. Compute feature correlations and remove highly correlated features (excluding target)
     print("Computing feature correlations...")
     df_corr = compute_feature_correlations(df_clean, target='total_UPDRS')
 

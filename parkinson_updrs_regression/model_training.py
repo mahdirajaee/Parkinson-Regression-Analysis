@@ -46,17 +46,14 @@ def local_steepest_descent_regression(X_train, y_train, X_test, N=10, learning_r
     """
     n_test = X_test.shape[0]
     y_pred = np.zeros(n_test)
-    
     for i in range(n_test):
         x = X_test[i, :]  # Test point (1 x d)
-        # Compute Euclidean distances from x to each training point
         distances = np.linalg.norm(X_train - x, axis=1)
         neighbor_idx = np.argsort(distances)[:N]  # Indices of the N closest points
         
         X_local = X_train[neighbor_idx, :]
         y_local = y_train[neighbor_idx]
         
-        # Initialize local weights for steepest descent
         w_local = np.zeros(X_local.shape[1])
         for _ in range(max_iter):
             gradient = -2 * (X_local.T @ (y_local - X_local @ w_local)) / len(y_local)
