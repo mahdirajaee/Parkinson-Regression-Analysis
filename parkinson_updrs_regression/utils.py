@@ -3,15 +3,15 @@ import matplotlib.pyplot as plt
 import pandas as pd
 
 class RegressionEvaluator:
-    """Provides methods for evaluating and visualizing regression performance."""
+    """Provides evaluation metrics and plotting utilities."""
     @staticmethod
     def evaluate(y_true, y_pred):
         error = y_true - y_pred
         mse = np.mean(error ** 2)
         var_y = np.var(y_true)
         r2 = 1 - mse / var_y if var_y != 0 else 0
-        correlation = np.corrcoef(y_true, y_pred)[0, 1]
-        return mse, r2, correlation
+        corr = np.corrcoef(y_true, y_pred)[0, 1]
+        return mse, r2, corr
 
     @staticmethod
     def plot_histogram(errors, title="Error Histogram"):
@@ -42,8 +42,8 @@ class RegressionEvaluator:
     def print_results(y_train, y_train_pred, y_test, y_test_pred):
         train_mse, train_r2, train_corr = RegressionEvaluator.evaluate(y_train, y_train_pred)
         test_mse, test_r2, test_corr = RegressionEvaluator.evaluate(y_test, y_test_pred)
-        results = pd.DataFrame({
+        df_results = pd.DataFrame({
             "Training": [train_mse, train_r2, train_corr],
             "Test": [test_mse, test_r2, test_corr]
         }, index=["MSE", "R²", "Correlation"])
-        print(results)
+        print(df_results)
